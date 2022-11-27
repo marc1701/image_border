@@ -6,7 +6,7 @@ from skimage import io
 from pathlib import Path
 from skimage.transform import rescale
 
-def main(input_filepath, output_filename=None, quality=95, **kwargs):
+def main(input_filepath, output_filename=None, output_dir='.', quality=95, **kwargs):
 
     image = io.imread(input_filepath)
 
@@ -14,16 +14,17 @@ def main(input_filepath, output_filename=None, quality=95, **kwargs):
         # add channel dimension to monochrome images
         image = np.expand_dims(image, 2)
 
-    wb = add_white_border(image, **kwargs)
+    wb = add_border(image, **kwargs)
 
     if not output_filename:
         output_filename = f'{Path(input_filepath).stem}_wb.jpg'
-        if args.verbose: print(f'Saved as {output_filename}')
-
-    io.imsave(output_filename, wb, quality=quality)
+        
+    outpath = f'{output_dir}/{output_filename}'
+    io.imsave(outpath, wb, quality=quality)
+    if args.verbose: print(f'Saved as {outpath}')
     
 
-def add_white_border(image, canvas_size=(2160, 2160), thinnest_border=80, verbose=False):
+def add_border(image, canvas_size=(2160, 2160), thinnest_border=80, verbose=False):
     
     cheight, cwidth = canvas_size
     imheight, imwidth, nchannels = image.shape
@@ -68,7 +69,7 @@ def parse_args():
     parser.add_argument('cheight', help='Height of background canvas in pixels.', type=int)
     parser.add_argument('cwidth', help='Width of background canvas in pixels.', type=int)
 
-    parser.add_argument('--output_dir', default='', help='Directory for output files.')
+    parser.add_argument('--output_dir', default='.', help='Directory for output files.')
     parser.add_argument('--jpegquality', default=95, type=int, help='Quality of output jpeg file.')
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--output_filename', help='Name for output file.')
@@ -80,6 +81,7 @@ if __name__ == "__main__":
 
     main(args.input_filepath,
          args.output_filename,
+         args.output_dir,
          args.jpegquality,
          canvas_size=(args.cheight, args.cwidth),
          thinnest_border=args.border,
