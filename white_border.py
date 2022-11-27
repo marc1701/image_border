@@ -7,6 +7,10 @@ def main(input_filepath, output_filepath=None, quality=95, **kwargs):
 
     image = io.imread(input_filepath)
 
+    if len(image.shape) < 3:
+        # add channel dimension to monochrome images
+        image = np.expand_dims(image, 2)
+
     wb = add_white_border(image, **kwargs)
 
     if not output_filepath: 
@@ -18,10 +22,10 @@ def main(input_filepath, output_filepath=None, quality=95, **kwargs):
 def add_white_border(image, canvas_size=(2160, 2160), thinnest_border=80, verbose=False):
     
     cheight, cwidth = canvas_size
-    imheight, imwidth = image.shape
+    imheight, imwidth, nchannels = image.shape
 
     # make a white background array
-    canvas = np.ones(canvas_size, dtype=np.uint8) * 255
+    canvas = np.ones((*canvas_size, nchannels), dtype=np.uint8) * 255
 
     # calculate scale factors in either dimension, retain the smallest
     vscale = (cheight - thinnest_border*2) / imheight
@@ -32,12 +36,12 @@ def add_white_border(image, canvas_size=(2160, 2160), thinnest_border=80, verbos
         warnings.warn('Image will be scaled up')
     
     if rescale_factor != 1:
-        image = rescale(image, rescale_factor, preserve_range=True)
+        image = rescale(image, rescale_factor, preserve_range=True, channel_axis=2)
         if verbose: print(f'Rescaling image by factor {rescale_factor}')
     else: 
         if verbose: print('Image not rescaled')
 
-    imheight, imwidth = image.shape
+    imheight, imwidth, _ = image.shape
     vspace = (cheight - imheight) // 2
     hspace = (cwidth - imwidth) // 2
 
@@ -49,3 +53,5 @@ def add_white_border(image, canvas_size=(2160, 2160), thinnest_border=80, verbos
 #
 # could add an additional option for 'gallery' centering 
 # (e.g. slightly higher than centre)
+#
+# could have option for background colour / automatic colour selection
