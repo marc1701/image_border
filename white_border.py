@@ -26,18 +26,15 @@ def main(input_filepath, output_filename=None,
     
 
 def add_border(image, canvas_size=(2160, 2160), border=80, 
-    bottom_weighted=False, verbose=False, bg_luminance=0.965):
+    bottom_weighted=False, verbose=False, bg_luminance=0.92):
     
     cheight, cwidth = canvas_size
     imheight, imwidth, nchannels = image.shape
 
     # a bit of a fudge
-    if bg_luminance == 1:
-        bgcolor = 255
-    elif bg_luminance == 0:
-        bgcolor = 0
-    else:
-        bgcolor = move_luminance(rgbimage_mean_colour(image), bg_luminance)
+    if bg_luminance == 1: bgcolor = 255
+    elif bg_luminance == 0: bgcolor = 0
+    else: bgcolor = move_luminance(rgbimage_mean_colour(image), bg_luminance)
 
     # make a white background array
     canvas = np.ones((*canvas_size, nchannels), dtype=np.uint8) * bgcolor
@@ -76,36 +73,7 @@ def rgbimage_mean_colour(image):
 
 
 def perceptual_luminance(colour):
-    # NEEDS COMPENSATING FOR GAMMA
     return np.sum(colour * np.array([0.2126, 0.7152, 0.0722]))
-
-
-def c_lin(c_srgb):
-    '''Converts gamma-adjusted sRGB values to linear'''
-    if type(c_srgb) == np.ndarray:
-        c_arr = np.zeros_like(c_srgb)
-        for i, c in enumerate(c_srgb):
-            c_arr[i] = c_lin(c)
-        return c_arr
-        
-    if c_srgb <= 0.04045:
-        return c_srgb/12.92
-    elif c_srgb > 0.04045:
-        return ((c_srgb + 0.055) / 1.055)**2.4
-
-
-def c_srgb(c_lin):
-    '''Converts linear values to sRGB gamma'''
-    if type(c_lin) == np.ndarray:
-        c_arr = np.zeros_like(c_lin)
-        for i, c in enumerate(c_lin):
-            c_arr[i] = c_srgb(c)
-        return c_arr
-
-    if c_lin <= 0.0031308:
-        return 12.92*c_lin
-    elif c_lin > 0.003108:
-        return (1.055*c_lin**(1/2.4)) - 0.055
 
 
 def move_luminance(colour, luminance):
