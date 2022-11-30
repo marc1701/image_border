@@ -113,7 +113,7 @@ def move_luminance(colour, luminance):
 def parse_args():
     parser = argparse.ArgumentParser(description='Add borders to images.')
     
-    parser.add_argument('input_filepath', 
+    parser.add_argument('infile', 
         help='Path of image to process.')
     parser.add_argument('border', type=int, 
         help='Border thickness in pixels.')
@@ -122,17 +122,17 @@ def parse_args():
     parser.add_argument('cwidth', type=int,
         help='Width of background canvas in pixels.')
 
-    parser.add_argument('--bgluminance', default=0.85, type=float,
+    parser.add_argument('-l', '--bgluminance', default=0.85, type=float,
         help='Set luminance of background canvas.')
-    parser.add_argument('--verbose', action='store_true',
+    parser.add_argument('-v', '--verbose', action='store_true',
         help='Set verbosity (printing of output messages).')
-    parser.add_argument('--output_filename', 
+    parser.add_argument('-o', '--outfile', 
         help='Name for output file.')
-    parser.add_argument('--btmwght', action='store_true', 
+    parser.add_argument('-b', '--btmwght', action='store_true', 
         help='Enable bottom weighting.')
-    parser.add_argument('--output_dir', default='.', 
+    parser.add_argument('-d', '--outdir', default='.', 
         help='Directory for output files.')
-    parser.add_argument('--jpegquality', default=95, type=int, 
+    parser.add_argument('-j', '--jpegquality', default=95, type=int, 
         help='Quality of output jpeg file.')
     
 
@@ -141,9 +141,9 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    main(args.input_filepath,
-         args.output_filename,
-         args.output_dir,
+    main(args.infile,
+         args.outfile,
+         args.outdir,
          args.jpegquality,
          canvas_size=(args.cheight, args.cwidth),
          border=args.border,
@@ -152,4 +152,4 @@ if __name__ == "__main__":
          bg_luminance=args.bgluminance)
 
 # e.g.
-# python3 white_border.py fox_mural.jpg 80 2160 2160 --output_filename fox10.jpg --bgluminance 0.25
+# python3 white_border.py fox_mural.jpg 80 2160 2160 --outfile fox10.jpg --bgluminance 0.25

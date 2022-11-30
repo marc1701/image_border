@@ -5,7 +5,7 @@ The option `-btmwght` is included for 'bottom weighting', sometimes used in gall
 
 #### Positional Arguments:
   ```
-  input_filepath        Path of image to process.
+  infile                Path of image to process.
   border                Border thickness in pixels.
   cheight               Height of background canvas in pixels.
   cwidth                Width of background canvas in pixels.
@@ -13,13 +13,12 @@ The option `-btmwght` is included for 'bottom weighting', sometimes used in gall
 
 #### Optional Arguments:
   ```
-  -h, --help            show this help message and exit
-  --bgluminance         Set luminance of background canvas.
-  --verbose             Set verbosity (printing of output messages).
-  --output_filename     Name for output file.
-  --btmwght             Enable bottom weighting.
-  --output_dir          Directory for output files.
-  --jpegquality         Quality of output jpeg file.
+  -l, --bgluminance     Set luminance of background canvas.
+  -v, --verbose         Set verbosity (printing of output messages).
+  -o, --outfile         Name for output file.
+  -b, --btmwght         Enable bottom weighting.
+  -d, --outdir          Directory for output files.
+  -j, --jpegquality     Quality of output jpeg file.
   ```
 
 #### Usage Example:
