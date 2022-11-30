@@ -122,7 +122,7 @@ def parse_args():
     parser.add_argument('cwidth', type=int,
         help='Width of background canvas in pixels.')
 
-    parser.add_argument('--bgluminance', default=0.965, type=float,
+    parser.add_argument('--bgluminance', default=0.85, type=float,
         help='Set luminance of background canvas.')
     parser.add_argument('--verbose', action='store_true',
         help='Set verbosity (printing of output messages).')
