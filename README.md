@@ -23,4 +23,5 @@ The option `-btmwght` is included for 'bottom weighting', sometimes used in gall
 
 #### Usage Example:
 `python3 image_border.py in.jpg 80 2160 2160 --output_filename out.jpg --bgluminance 0.95`
+
  `python3 image_border.py in.jpg 80 2160 2160 -o out.jpg -l 0.95`
