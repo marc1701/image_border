@@ -83,29 +83,20 @@ def move_luminance(colour, luminance):
     luma = perceptual_luminance(colour)
     colour = np.copy(colour)
 
-    if luma < luminance:
-        while luma < luminance:
+    if luma != luminance:
+        
+        inc = 1 if luma < luminance else -1
+        
+        while luma != luminance:
             
             # increment brightness
-            colour += 1
+            colour += inc
 
             # calculate perceptual luminance
             luma = int(perceptual_luminance(colour))
 
             # clip values
-            colour[colour > 255] = 255
-    
-    elif luma > luminance:
-        while luma > luminance:
-            
-            # increment brightness
-            colour -= 1
-
-            # calculate perceptual luminance
-            luma = int(perceptual_luminance(colour))
-
-            # clip values
-            colour[colour < 0] = 0
+            colour = np.clip(colour, 0, 255)
 
     return colour
 
