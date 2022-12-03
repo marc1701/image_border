@@ -27,7 +27,7 @@ def main(input_filepath, output_filename=None,
     
 
 def add_border(image, canvas_size=(2160, 2160), border=80, 
-    bottom_weighted=False, verbose=False, bg_luminance=0.85):
+    bottom_weighted=False, verbose=False, bg_luminance=1):
     
     cheight, cwidth = canvas_size
     imheight, imwidth, nchannels = image.shape
@@ -113,7 +113,7 @@ def parse_args():
     parser.add_argument('cwidth', type=int,
         help='Width of background canvas in pixels.')
 
-    parser.add_argument('-l', '--bgluminance', default=0.85, type=float,
+    parser.add_argument('-l', '--bgluminance', default=1, type=float,
         help='Set luminance of background canvas.')
     parser.add_argument('-v', '--verbose', action='store_true',
         help='Set verbosity (printing of output messages).')
