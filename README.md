@@ -5,7 +5,7 @@ The option `-btmwght` is included for 'bottom weighting', sometimes used in gall
 
 #### Positional Arguments:
   ```
-  infile                Path of image to process.
+  infiles               Path(s) of image(s) to process.
   border                Border thickness in pixels.
   cheight               Height of background canvas in pixels.
   cwidth                Width of background canvas in pixels.
@@ -22,6 +22,11 @@ The option `-btmwght` is included for 'bottom weighting', sometimes used in gall
   ```
 
 #### Usage Example:
-`python3 image_border.py in.jpg 80 2160 2160 --output_filename out.jpg --bgluminance 0.95`
+Resize image 'in.jpg' to fit on 2160px square background with an 80px border:
+  `python image_border.py in.jpg 80 2160 2160 -o out.jpg -l 0.95`
+  or:
+  `python image_border.py in.jpg 80 2160 2160 --output_filename out.jpg --bgluminance 0.95`
 
- `python3 image_border.py in.jpg 80 2160 2160 -o out.jpg -l 0.95`
+It is also possible to perform the operation on a list of files:
+  `python image_border.py *.jpg 80 2160 2160 -l 1`
+

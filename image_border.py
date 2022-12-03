@@ -104,8 +104,8 @@ def move_luminance(colour, luminance):
 def parse_args():
     parser = argparse.ArgumentParser(description='Add borders to images.')
     
-    parser.add_argument('infile', 
-        help='Path of image to process.')
+    parser.add_argument('infiles', nargs='+',
+        help='Path(s) of image(s) to process.')
     parser.add_argument('border', type=int, 
         help='Border thickness in pixels.')
     parser.add_argument('cheight', type=int,
@@ -132,15 +132,13 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
 
-    main(args.infile,
-         args.outfile,
-         args.outdir,
-         args.jpegquality,
-         canvas_size=(args.cheight, args.cwidth),
-         border=args.border,
-         bottom_weighted=args.btmwght,
-         verbose=args.verbose,
-         bg_luminance=args.bgluminance)
-
-# e.g.
-# python3 white_border.py fox_mural.jpg 80 2160 2160 --outfile fox10.jpg --bgluminance 0.25
+    for file in args.infiles:
+        main(file,
+             args.outfile,
+             args.outdir,
+             args.jpegquality,
+             canvas_size=(args.cheight, args.cwidth),
+             border=args.border,
+             bottom_weighted=args.btmwght,
+             verbose=args.verbose,
+             bg_luminance=args.bgluminance)
