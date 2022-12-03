@@ -22,11 +22,15 @@ The option `-btmwght` is included for 'bottom weighting', sometimes used in gall
   ```
 
 #### Usage Example:
-Resize image 'in.jpg' to fit on 2160px square background with an 80px border:
+Resize image 'in.jpg' to fit on 2160px square background with an 80px, 95% luminance border:
+
   `python image_border.py in.jpg 80 2160 2160 -o out.jpg -l 0.95`
+
   or:
+  
   `python image_border.py in.jpg 80 2160 2160 --output_filename out.jpg --bgluminance 0.95`
 
 It is also possible to perform the operation on a list of files:
+
   `python image_border.py *.jpg 80 2160 2160 -l 1`
 
