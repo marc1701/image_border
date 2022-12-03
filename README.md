@@ -32,5 +32,5 @@ Resize image 'in.jpg' to fit on 2160px square background with an 80px, 95% lumin
 
 It is also possible to perform the operation on a list of files:
 
-  `python image_border.py *.jpg 80 2160 2160 -l 1`
+  `python image_border.py *.jpg 80 2160 2160`
 
